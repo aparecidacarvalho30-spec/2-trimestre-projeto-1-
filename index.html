@@ -1,13 +1,172 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Portal de Apoio ao Estudante - Saude Emocional</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <!-- Barra de Acessibilidade e Navegacao -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse">
+                <span>Apoio Emocional</span>
+            </div>
+            
+            <nav class="nav">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#escuta">Portal de Escuta</a></li>
+                    <li><a href="#quiz">Quiz Interativo</a></li>
+                    <li><a href="#referencias">Referencias</a></li>
+                </ul>
+            </nav>
+
+            <div class="accessibility-controls">
+                <button id="btn-font" title="Aumentar Fonte"><i class="fa-solid fa-text-height"></i></button>
+                <button id="btn-contrast" title="Alto Contraste"><i class="fa-solid fa-circle-half-stroke"></i></button>
+                <button id="btn-theme" title="Modo Escuro"><i class="fa-solid fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Pagina Inicial / Banner -->
+        <section id="inicio" class="hero-section">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1>Sua Saude Emocional Importa</h1>
+                    <p class="welcome-message">
+                        Bem-vindo ao Portal de Apoio ao Estudante. Aqui voce encontrara informacoes, orientações e apoio sobre situações vivenciadas no ambiente escolar e na sua rotina diária.
+                    </p>
+                    <p>
+                        Cuidar dos seus sentimentos e o primeiro passo para ter uma vida escolar saudavel e harmoniosa. Você não precisa passar por momentos difíceis em silêncio.
+                    </p>
+                    <a href="#escuta" class="btn-primary">Precisa conversar? Clique aqui</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Estudantes unidos conversando no ambiente escolar">
+                </div>
+            </div>
+        </section>
+
+        <!-- Seelecao Informativa de Apoio -->
+        <section class="info-section">
+            <div class="container">
+                <h2>Onde Buscar Ajuda?</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <i class="fa-solid fa-school-flag card-icon"></i>
+                        <h3>Na Escola</h3>
+                        <p>Procure orientacao com pedagogos, professores de confianca ou a direcao escolar. Eles estão preparados para ouvir e orientar.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fa-solid fa-people-roof card-icon"></i>
+                        <h3>Em Casa</h3>
+                        <p>Compartilhe suas angustias e sentimentos com familiares ou adultos de sua confiança. O diálogo fortalece as pontes.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fa-solid fa-phone-volume card-icon"></i>
+                        <h3>Apoio Gratuito (CVV)</h3>
+                        <p>O Centro de Valorizacao da Vida atende gratuitamente pelo numero <strong>188</strong> ou pelo site cvv.org.br 24 horas por dia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portal de Escuta -->
+        <section id="escuta" class="escuta-section">
+            <div class="container">
+                <h2>Portal de Escuta</h2>
+                <p class="section-description">Este e um espaco seguro e anonimo para voce expressar o que está sentindo. Digite abaixo o seu desabafo ou pensamento.</p>
+                
+                <div class="escuta-box">
+                    <form id="form-escuta">
+                        <div class="form-group">
+                            <label for="desabafo">Como voce esta se sentindo hoje?</label>
+                            <textarea id="desabafo" rows="5" placeholder="Escreva aqui seu desabafo... (Nenhuma informação será salva)." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar Desabafo</button>
+                    </form>
+
+                    <div id="resposta-acolhimento" class="resposta-acolhimento hidden">
+                        <i class="fa-solid fa-heart icon-pulse"></i>
+                        <p id="mensagem-resposta"></p>
+                    </div>
+
+                    <div class="quote-box">
+                        <p class="quote-text">"Pedir ajuda nao e sinal de fraqueza, mas sim um ato de coragem e autocuidado."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Interativo -->
+        <section id="quiz" class="quiz-section">
+            <div class="container">
+                <h2>Quiz Interativo: Cuidando da Mente</h2>
+                <p class="section-description">Testes seus conhecimentos sobre bem-estar emocional e convivência saudável.</p>
+
+                <div class="quiz-card">
+                    <div id="quiz-container">
+                        <div id="question-box">
+                            <h3 id="question-text">Carregando pergunta...</h3>
+                            <div id="options-box" class="options-container"></div>
+                        </div>
+                        <button id="btn-next" class="btn-next hidden">Proxima Pergunta</button>
+                    </div>
+                    
+                    <div id="quiz-result" class="quiz-result hidden">
+                        <h3>Resultado Final</h3>
+                        <p id="score-text"></p>
+                        <button id="btn-restart" class="btn-primary">Refazer Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pagina de Referencias -->
+        <section id="referencias" class="referencias-section">
+            <div class="container">
+                <h2>Referencias e Fontes de Pesquisa</h2>
+                <p class="section-description">Informacoes embasadas em instituicoes reconhecidas e fontes oficiais:</p>
+                
+                <ul class="ref-list">
+                    <li>
+                        <i class="fa-solid fa-link"></i>
+                        <a href="https://www.gov.br/saude/pt-br" target="_blank" rel="noopener noreferrer">Ministério da Saúde (Brasil)</a> - Diretrizes e materiais educativos sobre saúde mental na infância e juventude.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-link"></i>
+                        <a href="https://www.who.int/pt" target="_blank" rel="noopener noreferrer">Organização Mundial da Saúde (OMS)</a> - Relatórios e recomendações globais de bem-estar emocional para adolescentes.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-link"></i>
+                        <a href="https://www.cvv.org.br" target="_blank" rel="noopener noreferrer">Centro de Valorização da Vida (CVV)</a> - Canal de escuta empática e apoio emocional gratuito via telefone 188.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-link"></i>
+                        <a href="https://www.unicef.org/brazil/" target="_blank" rel="noopener noreferrer">UNICEF Brasil</a> - Cartilhas sobre saúde mental de crianças e adolescentes no espaço escolar.
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Portal de Apoio ao Estudante | Projeto Educacional Individual</p>
+        </div>
+    </footer>
+
+    <!-- Botao Voltar ao Topo -->
+    <button id="btn-top" title="Voltar ao Topo"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="script.js"></script>
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+</html>
