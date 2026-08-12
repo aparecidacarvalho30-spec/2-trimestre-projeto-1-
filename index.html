@@ -1,5 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-<!DOCTYPE html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +10,7 @@
 
     <style>
         /* ==========================================================================
-           1. ESTILOS GERAIS E PALETA DE CORES (AZUL ESCURO & MINIMALISTA)
+           1. ESTILOS GERAIS E PALETA DE CORES (AZUL ESCURO, CALMO & MINIMALISTA)
            ========================================================================== */
         :root {
             --bg-main: #0a192f;
@@ -25,7 +24,7 @@
             --font-scale: 16px;
         }
 
-        /* Modo Alto Contraste para Acessibilidade */
+        /* Modo Alto Contraste */
         body.high-contrast {
             --bg-main: #000000;
             --bg-card: #050505;
@@ -118,13 +117,13 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 18px;
         }
 
         .nav-links a {
             color: var(--text-primary);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
@@ -133,7 +132,7 @@
         }
 
         /* ==========================================================================
-           3. ESTRUTURA DOS CARDS E CONTEÚDO
+           3. ESTRUTURA DOS CARDS E SEÇÕES
            ========================================================================== */
         .hero-section {
             padding: 40px 0 20px;
@@ -165,9 +164,10 @@
         .welcome-text {
             color: var(--text-secondary);
             margin-bottom: 25px;
+            font-size: 1.05rem;
         }
 
-        /* Vídeo de Apoio Responsivo */
+        /* Vídeo de Apoio */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
@@ -201,7 +201,7 @@
             font-size: 1.5rem;
         }
 
-        /* Grid de Dicas Anti-Tensão */
+        /* Dicas Anti-Tensão */
         .grid-tips {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -321,7 +321,92 @@
         }
 
         /* ==========================================================================
-           5. QUIZ INTERATIVO E COMPONENTES FINAIS
+           5. NOVO: CANVAS DE DESENHO LIVRE E EXPRESSÃO
+           ========================================================================== */
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        #drawing-canvas {
+            background-color: #050e1a;
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            cursor: crosshair;
+            touch-action: none;
+            max-width: 100%;
+        }
+
+        .canvas-tools {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .color-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================================================
+           6. NOVO: JOGO INTERATIVO ANTI-ESTRESSE (PLÁSTICO BOLHA VIRTUAL)
+           ========================================================================== */
+        .game-wrapper {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .bubble-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            max-width: 450px;
+            margin: 20px auto;
+        }
+
+        .bubble {
+            aspect-ratio: 1;
+            background: radial-gradient(circle, #1d3557 0%, #0a192f 100%);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: inset 0 0 8px rgba(100, 255, 218, 0.3);
+            transition: transform 0.1s ease, background 0.2s ease;
+        }
+
+        .bubble:active {
+            transform: scale(0.85);
+        }
+
+        .bubble.popped {
+            background: #020c1b;
+            border-color: var(--border-color);
+            box-shadow: none;
+            opacity: 0.4;
+            transform: scale(0.9);
+        }
+
+        .game-stats {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           7. QUIZ INTERATIVO E COMPONENTES FINAIS
            ========================================================================== */
         .question-block {
             background-color: var(--bg-main);
@@ -381,6 +466,9 @@
             .hero-card {
                 padding: 20px;
             }
+            .bubble-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
     </style>
 </head>
@@ -406,8 +494,10 @@
                 <ul class="nav-links">
                     <li><a href="#inicio">Início</a></li>
                     <li><a href="#dicas">Dicas Anti-Tensão</a></li>
-                    <li><a href="#escuta">Espaço Desabafo</a></li>
-                    <li><a href="#quiz">Quiz & Pausa</a></li>
+                    <li><a href="#escuta">Desabafo</a></li>
+                    <li><a href="#desenho">Espaço Desenho</a></li>
+                    <li><a href="#jogos">Jogos Relaxantes</a></li>
+                    <li><a href="#quiz">Quiz</a></li>
                     <li><a href="#referencias">Fontes</a></li>
                 </ul>
             </nav>
@@ -416,14 +506,13 @@
 
     <main class="container">
 
-        <!-- 1. PÁGINA INICIAL COM VÍDEO DE APOIO -->
+        <!-- 1. PÁGINA INICIAL COM MENSAGEM ACOLHEDORA E VÍDEO -->
         <section id="inicio" class="hero-section">
             <div class="hero-card">
                 <span class="badge"><i class="fa-solid fa-shield-heart"></i> Ambiente Seguro</span>
                 <h1>Sua mente em paz durante a rotina escolar.</h1>
                 <p class="welcome-text">
-                    Bem-vindo ao Portal de Apoio ao Estudante. Este espaço foi planejado para oferecer acolhimento,
-                    recursos práticos contra o estresse e ferramentas para ajudar você a superar momentos difíceis na escola.
+                    Seja muito bem-vindo ao Portal CalmaMente. <strong>Sinta-se totalmente à vontade e confortável com o que você for desabafar ou expressar aqui.</strong> Este ambiente foi preparado com muito carinho para oferecer acolhimento, estratégias contra o estresse e recursos para aliviar a tensão do seu dia a dia.
                 </p>
                 
                 <!-- Vídeo de Apoio Embutido (Exercício de Respiração / Calma) -->
@@ -464,7 +553,7 @@
         <section id="escuta" class="section-card">
             <div class="desabafo-header">
                 <h2><i class="fa-solid fa-feather"></i> Espaço do Desabafo</h2>
-                <p>Escreva livremente. Este espaço é minimalista, seguro e 100% privado: nada do que você digitar aqui é salvo ou enviado a servidores.</p>
+                <p>Escreva livremente o que está em sua mente. Este espaço é calmo, minimalista e 100% privado: nenhuma informação digitada é salva ou enviada para qualquer lugar.</p>
             </div>
 
             <div class="desabafo-wrapper">
@@ -472,7 +561,7 @@
                     <textarea 
                         id="campo-desabafo" 
                         rows="7" 
-                        placeholder="Escreva aqui tudo o que está pesando no seu dia..."
+                        placeholder="Escreva aqui tudo o que está pesando no seu dia... Sinta-se confortável."
                         required></textarea>
                     
                     <div class="desabafo-actions">
@@ -494,10 +583,48 @@
             </div>
         </section>
 
-        <!-- 3. QUIZ INTERATIVO (5 PERGUNTAS DE ENTRETENIMENTO & CONSCIENTIZAÇÃO) -->
+        <!-- NOVO: ESPAÇO PARA DESENHAR O QUE SENTE -->
+        <section id="desenho" class="section-card">
+            <h2><i class="fa-solid fa-palette"></i> Espaço de Expressão e Desenho</h2>
+            <p>Às vezes é difícil colocar em palavras. Use o quadro abaixo para rabiscar, desenhar sentimentos, formas ou simplesmente relaxar a mente.</p>
+            
+            <div class="canvas-container">
+                <canvas id="drawing-canvas" width="600" height="320"></canvas>
+                
+                <div class="canvas-tools">
+                    <span>Cores:</span>
+                    <button class="color-btn" style="background-color: #64ffda;" onclick="setCanvasColor('#64ffda')"></button>
+                    <button class="color-btn" style="background-color: #0077b6;" onclick="setCanvasColor('#0077b6')"></button>
+                    <button class="color-btn" style="background-color: #ff477e;" onclick="setCanvasColor('#ff477e')"></button>
+                    <button class="color-btn" style="background-color: #ffb703;" onclick="setCanvasColor('#ffb703')"></button>
+                    <button class="color-btn" style="background-color: #ffffff;" onclick="setCanvasColor('#ffffff')"></button>
+                    <button id="btn-clear-canvas" class="btn-glow btn-sm"><i class="fa-solid fa-eraser"></i> Limpar Tela</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOVO: JOGO INTERATIVO RELAXANTE (PLÁSTICO BOLHA VIRTUAL) -->
+        <section id="jogos" class="section-card">
+            <h2><i class="fa-solid fa-gamepad"></i> Jogo Relaxante: Plástico Bolha Anti-Estresse</h2>
+            <p>Precisa descarregar a tensão acumulada? Clique nas bolhas para estourá-las e focar o pensamento no presente.</p>
+
+            <div class="game-wrapper">
+                <div class="game-stats">
+                    Bolhas Estouradas: <strong id="pop-count" style="color: var(--accent-cyan);">0</strong>
+                </div>
+
+                <div class="bubble-grid" id="bubble-grid">
+                    <!-- Gerado dinamicamente via JS -->
+                </div>
+
+                <button id="btn-reset-bubbles" class="btn-glow btn-sm"><i class="fa-solid fa-rotate-right"></i> Restaurar Bolhas</button>
+            </div>
+        </section>
+
+        <!-- 3. QUIZ INTERATIVO (5 PERGUNTAS) -->
         <section id="quiz" class="section-card">
-            <h2><i class="fa-solid fa-gamepad"></i> Quiz Interativo & Pausa Consciente</h2>
-            <p>Responda às 5 perguntas abaixo para testar suas estratégias de bem-estar e aliviar a tensão do momento.</p>
+            <h2><i class="fa-solid fa-circle-question"></i> Quiz Interativo & Pausa Consciente</h2>
+            <p>Responda às 5 perguntas abaixo para testar suas estratégias de bem-estar e refletir de forma leve.</p>
 
             <div id="quiz-container" style="margin-top: 20px;">
                 <!-- Pergunta 1 -->
@@ -569,8 +696,14 @@
         </div>
     </footer>
 
-    <!-- LÓGICA JAVASCRIPT EM EMBUTIDA -->
+    <!-- LÓGICA JAVASCRIPT EMBUTIDA -->
     <script>
+        // Função Global para seleção de cor do Canvas
+        let currentColor = "#64ffda";
+        function setCanvasColor(color) {
+            currentColor = color;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
 
             // 1. Acessibilidade (Alto Contraste e Tamanho de Fonte)
@@ -597,7 +730,7 @@
                 }
             });
 
-            // 2. Espaço de Desabafo Minimalista & Contador
+            // 2. Espaço de Desabafo Minimalista
             const campoDesabafo = document.getElementById("campo-desabafo");
             const charCounter = document.getElementById("char-counter");
             const formDesabafo = document.getElementById("form-desabafo");
@@ -634,7 +767,80 @@
                 }
             });
 
-            // 3. Quiz Interativo & Respostas
+            // 3. Canvas de Desenho Livre
+            const canvas = document.getElementById("drawing-canvas");
+            const ctx = canvas.getContext("2d");
+            const btnClearCanvas = document.getElementById("btn-clear-canvas");
+            let isDrawing = false;
+
+            function startDrawing(e) {
+                isDrawing = true;
+                draw(e);
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+                ctx.beginPath();
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+                ctx.lineWidth = 4;
+                ctx.lineCap = "round";
+                ctx.strokeStyle = currentColor;
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+
+            canvas.addEventListener("mousedown", startDrawing);
+            canvas.addEventListener("mouseup", stopDrawing);
+            canvas.addEventListener("mousemove", draw);
+
+            canvas.addEventListener("touchstart", startDrawing);
+            canvas.addEventListener("touchend", stopDrawing);
+            canvas.addEventListener("touchmove", draw);
+
+            btnClearCanvas.addEventListener("click", () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            });
+
+            // 4. Jogo do Plástico Bolha Virtual
+            const bubbleGrid = document.getElementById("bubble-grid");
+            const popCountElem = document.getElementById("pop-count");
+            const btnResetBubbles = document.getElementById("btn-reset-bubbles");
+            let popCount = 0;
+
+            function createBubbles() {
+                bubbleGrid.innerHTML = "";
+                for (let i = 0; i < 24; i++) {
+                    const bubble = document.createElement("div");
+                    bubble.classList.add("bubble");
+                    bubble.addEventListener("click", () => {
+                        if (!bubble.classList.contains("popped")) {
+                            bubble.classList.add("popped");
+                            popCount++;
+                            popCountElem.textContent = popCount;
+                        }
+                    });
+                    bubbleGrid.appendChild(bubble);
+                }
+            }
+
+            btnResetBubbles.addEventListener("click", () => {
+                createBubbles();
+            });
+
+            createBubbles(); // Inicializa o jogo
+
+            // 5. Quiz Interativo & Respostas
             const btnCalcularQuiz = document.getElementById("btn-calcular-quiz");
             const quizResultado = document.getElementById("quiz-resultado");
 
@@ -667,7 +873,7 @@
                 quizResultado.classList.remove("hidden");
             });
 
-            // 4. Botão Voltar ao Topo
+            // 6. Botão Voltar ao Topo
             const btnBackToTop = document.getElementById("btn-back-to-top");
 
             window.addEventListener("scroll", () => {
@@ -687,4 +893,4 @@
         });
     </script>
 </body>
-</html>
+</html>                                                                                                                                                             
