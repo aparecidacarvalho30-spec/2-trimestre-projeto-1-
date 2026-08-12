@@ -4,169 +4,687 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Apoio ao Estudante - Saude Emocional</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Portal CalmaMente - Apoio e Acolhimento Estudantil</title>
+
+    <!-- Ícones FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           1. ESTILOS GERAIS E PALETA DE CORES (AZUL ESCURO & MINIMALISTA)
+           ========================================================================== */
+        :root {
+            --bg-main: #0a192f;
+            --bg-card: #112240;
+            --bg-card-hover: #1d3557;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --accent-cyan: #64ffda;
+            --accent-blue: #0077b6;
+            --border-color: #233554;
+            --font-scale: 16px;
+        }
+
+        /* Modo Alto Contraste para Acessibilidade */
+        body.high-contrast {
+            --bg-main: #000000;
+            --bg-card: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: #ffff00;
+            --accent-cyan: #00ffff;
+            --border-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: var(--font-scale);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==========================================================================
+           2. BARRA DE ACESSIBILIDADE E NAVEGAÇÃO
+           ========================================================================== */
+        .accessibility-bar {
+            background-color: #020c1b;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .accessibility-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .acc-buttons button {
+            background: transparent;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .acc-buttons button:hover {
+            background-color: var(--accent-cyan);
+            color: var(--bg-main);
+        }
+
+        .navbar {
+            background-color: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* ==========================================================================
+           3. ESTRUTURA DOS CARDS E CONTEÚDO
+           ========================================================================== */
+        .hero-section {
+            padding: 40px 0 20px;
+        }
+
+        .hero-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+
+        .badge {
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent-cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .hero-card h1 {
+            font-size: 2rem;
+            margin: 15px 0;
+            color: var(--text-primary);
+        }
+
+        .welcome-text {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        /* Vídeo de Apoio Responsivo */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .section-card h2 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Grid de Dicas Anti-Tensão */
+        .grid-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tip-box {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .icon-tip {
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+        }
+
+        .tip-box h3 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .tip-box p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================================================
+           4. ESPAÇO DE DESABAFO MINIMALISTA
+           ========================================================================== */
+        .desabafo-wrapper {
+            margin: 20px 0;
+        }
+
+        #campo-desabafo {
+            width: 100%;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 15px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            outline: none;
+        }
+
+        #campo-desabafo:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .desabafo-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #char-counter {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .btn-glow {
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-glow:hover {
+            background-color: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+        }
+
+        .feedback-card {
+            background-color: var(--bg-main);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .rede-apoio {
+            margin-top: 30px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .rede-apoio ul, .ref-links {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .rede-apoio li, .ref-links li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        .ref-links a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .ref-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           5. QUIZ INTERATIVO E COMPONENTES FINAIS
+           ========================================================================== */
+        .question-block {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .question-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .option-label {
+            display: block;
+            margin: 8px 0;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .option-label:hover {
+            color: var(--text-primary);
+        }
+
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-cyan);
+            color: var(--bg-main);
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .hero-card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Barra de Acessibilidade e Navegacao -->
-    <header class="header">
-        <div class="container header-container">
-            <div class="logo">
-                <i class="fa-solid fa-heart-pulse">
-                <span>Apoio Emocional</span>
+    <!-- CONTROLES DE ACESSIBILIDADE -->
+    <div class="accessibility-bar">
+        <div class="container accessibility-content">
+            <span><i class="fa-solid fa-universal-access"></i> Acessibilidade:</span>
+            <div class="acc-buttons">
+                <button id="btn-high-contrast" aria-label="Alto Contraste"><i class="fa-solid fa-circle-half-stroke"></i> Alto Contraste</button>
+                <button id="btn-font-plus" aria-label="Aumentar Fonte">A+</button>
+                <button id="btn-font-minus" aria-label="Diminuir Fonte">A-</button>
             </div>
-            
-            <nav class="nav">
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#escuta">Portal de Escuta</a></li>
-                    <li><a href="#quiz">Quiz Interativo</a></li>
-                    <li><a href="#referencias">Referencias</a></li>
+        </div>
+    </div>
+
+    <!-- MENU DE NAVEGAÇÃO -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#inicio" class="logo"><i class="fa-solid fa-brain"></i> CalmaMente</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#dicas">Dicas Anti-Tensão</a></li>
+                    <li><a href="#escuta">Espaço Desabafo</a></li>
+                    <li><a href="#quiz">Quiz & Pausa</a></li>
+                    <li><a href="#referencias">Fontes</a></li>
                 </ul>
             </nav>
-
-            <div class="accessibility-controls">
-                <button id="btn-font" title="Aumentar Fonte"><i class="fa-solid fa-text-height"></i></button>
-                <button id="btn-contrast" title="Alto Contraste"><i class="fa-solid fa-circle-half-stroke"></i></button>
-                <button id="btn-theme" title="Modo Escuro"><i class="fa-solid fa-moon"></i></button>
-            </div>
         </div>
     </header>
 
-    <main>
-        <!-- Pagina Inicial / Banner -->
+    <main class="container">
+
+        <!-- 1. PÁGINA INICIAL COM VÍDEO DE APOIO -->
         <section id="inicio" class="hero-section">
-            <div class="container hero-content">
-                <div class="hero-text">
-                    <h1>Sua Saude Emocional Importa</h1>
-                    <p class="welcome-message">
-                        Bem-vindo ao Portal de Apoio ao Estudante. Aqui voce encontrara informacoes, orientações e apoio sobre situações vivenciadas no ambiente escolar e na sua rotina diária.
-                    </p>
-                    <p>
-                        Cuidar dos seus sentimentos e o primeiro passo para ter uma vida escolar saudavel e harmoniosa. Você não precisa passar por momentos difíceis em silêncio.
-                    </p>
-                    <a href="#escuta" class="btn-primary">Precisa conversar? Clique aqui</a>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Estudantes unidos conversando no ambiente escolar">
-                </div>
-            </div>
-        </section>
-
-        <!-- Seelecao Informativa de Apoio -->
-        <section class="info-section">
-            <div class="container">
-                <h2>Onde Buscar Ajuda?</h2>
-                <div class="cards-grid">
-                    <div class="card">
-                        <i class="fa-solid fa-school-flag card-icon"></i>
-                        <h3>Na Escola</h3>
-                        <p>Procure orientacao com pedagogos, professores de confianca ou a direcao escolar. Eles estão preparados para ouvir e orientar.</p>
-                    </div>
-                    <div class="card">
-                        <i class="fa-solid fa-people-roof card-icon"></i>
-                        <h3>Em Casa</h3>
-                        <p>Compartilhe suas angustias e sentimentos com familiares ou adultos de sua confiança. O diálogo fortalece as pontes.</p>
-                    </div>
-                    <div class="card">
-                        <i class="fa-solid fa-phone-volume card-icon"></i>
-                        <h3>Apoio Gratuito (CVV)</h3>
-                        <p>O Centro de Valorizacao da Vida atende gratuitamente pelo numero <strong>188</strong> ou pelo site cvv.org.br 24 horas por dia.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portal de Escuta -->
-        <section id="escuta" class="escuta-section">
-            <div class="container">
-                <h2>Portal de Escuta</h2>
-                <p class="section-description">Este e um espaco seguro e anonimo para voce expressar o que está sentindo. Digite abaixo o seu desabafo ou pensamento.</p>
+            <div class="hero-card">
+                <span class="badge"><i class="fa-solid fa-shield-heart"></i> Ambiente Seguro</span>
+                <h1>Sua mente em paz durante a rotina escolar.</h1>
+                <p class="welcome-text">
+                    Bem-vindo ao Portal de Apoio ao Estudante. Este espaço foi planejado para oferecer acolhimento,
+                    recursos práticos contra o estresse e ferramentas para ajudar você a superar momentos difíceis na escola.
+                </p>
                 
-                <div class="escuta-box">
-                    <form id="form-escuta">
-                        <div class="form-group">
-                            <label for="desabafo">Como voce esta se sentindo hoje?</label>
-                            <textarea id="desabafo" rows="5" placeholder="Escreva aqui seu desabafo... (Nenhuma informação será salva)." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit">Enviar Desabafo</button>
-                    </form>
-
-                    <div id="resposta-acolhimento" class="resposta-acolhimento hidden">
-                        <i class="fa-solid fa-heart icon-pulse"></i>
-                        <p id="mensagem-resposta"></p>
-                    </div>
-
-                    <div class="quote-box">
-                        <p class="quote-text">"Pedir ajuda nao e sinal de fraqueza, mas sim um ato de coragem e autocuidado."</p>
-                    </div>
+                <!-- Vídeo de Apoio Embutido (Exercício de Respiração / Calma) -->
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/inpok4MKVLM" 
+                        title="Vídeo de Apoio e Exercício de Respiração" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </section>
 
-        <!-- Quiz Interativo -->
-        <section id="quiz" class="quiz-section">
-            <div class="container">
-                <h2>Quiz Interativo: Cuidando da Mente</h2>
-                <p class="section-description">Testes seus conhecimentos sobre bem-estar emocional e convivência saudável.</p>
+        <!-- SEÇÃO DE DICAS PARA PASSAR PELA TENSÃO NA ESCOLA -->
+        <section id="dicas" class="section-card">
+            <h2><i class="fa-solid fa-compass"></i> Como lidar com a tensão no ambiente escolar</h2>
+            <div class="grid-tips">
+                <div class="tip-box">
+                    <i class="fa-solid fa-wind icon-tip"></i>
+                    <h3>Técnica 4-7-8</h3>
+                    <p>Inspire pelo nariz por 4s, segure o ar por 7s e solte lentamente pela boca por 8s. Repita 3 vezes quando sentir ansiedade antes de provas.</p>
+                </div>
+                <div class="tip-box">
+                    <i class="fa-solid fa-comments icon-tip"></i>
+                    <h3>Não guarde para você</h3>
+                    <p>Procure um professor de confiança, um pedagogo ou um amigo. Falar sobre o problema diminui o impacto emocional do estresse.</p>
+                </div>
+                <div class="tip-box">
+                    <i class="fa-solid fa-stopwatch icon-tip"></i>
+                    <h3>Pausas Estratégicas</h3>
+                    <p>Durante o estudo, faça pausas de 5 minutos a cada 25 minutos estudados. Caminhe, beba água e desconecte das telas por alguns instantes.</p>
+                </div>
+            </div>
+        </section>
 
-                <div class="quiz-card">
-                    <div id="quiz-container">
-                        <div id="question-box">
-                            <h3 id="question-text">Carregando pergunta...</h3>
-                            <div id="options-box" class="options-container"></div>
-                        </div>
-                        <button id="btn-next" class="btn-next hidden">Proxima Pergunta</button>
-                    </div>
+        <!-- 2. PORTAL DE ESCUTA / ESPAÇO DE DESABAFO MINIMALISTA -->
+        <section id="escuta" class="section-card">
+            <div class="desabafo-header">
+                <h2><i class="fa-solid fa-feather"></i> Espaço do Desabafo</h2>
+                <p>Escreva livremente. Este espaço é minimalista, seguro e 100% privado: nada do que você digitar aqui é salvo ou enviado a servidores.</p>
+            </div>
+
+            <div class="desabafo-wrapper">
+                <form id="form-desabafo">
+                    <textarea 
+                        id="campo-desabafo" 
+                        rows="7" 
+                        placeholder="Escreva aqui tudo o que está pesando no seu dia..."
+                        required></textarea>
                     
-                    <div id="quiz-result" class="quiz-result hidden">
-                        <h3>Resultado Final</h3>
-                        <p id="score-text"></p>
-                        <button id="btn-restart" class="btn-primary">Refazer Quiz</button>
+                    <div class="desabafo-actions">
+                        <span id="char-counter">0 caracteres</span>
+                        <button type="submit" class="btn-glow"><i class="fa-solid fa-paper-plane"></i> Soltar Pensamentos</button>
                     </div>
-                </div>
-            </div>
-        </section>
+                </form>
 
-        <!-- Pagina de Referencias -->
-        <section id="referencias" class="referencias-section">
-            <div class="container">
-                <h2>Referencias e Fontes de Pesquisa</h2>
-                <p class="section-description">Informacoes embasadas em instituicoes reconhecidas e fontes oficiais:</p>
-                
-                <ul class="ref-list">
-                    <li>
-                        <i class="fa-solid fa-link"></i>
-                        <a href="https://www.gov.br/saude/pt-br" target="_blank" rel="noopener noreferrer">Ministério da Saúde (Brasil)</a> - Diretrizes e materiais educativos sobre saúde mental na infância e juventude.
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-link"></i>
-                        <a href="https://www.who.int/pt" target="_blank" rel="noopener noreferrer">Organização Mundial da Saúde (OMS)</a> - Relatórios e recomendações globais de bem-estar emocional para adolescentes.
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-link"></i>
-                        <a href="https://www.cvv.org.br" target="_blank" rel="noopener noreferrer">Centro de Valorização da Vida (CVV)</a> - Canal de escuta empática e apoio emocional gratuito via telefone 188.
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-link"></i>
-                        <a href="https://www.unicef.org/brazil/" target="_blank" rel="noopener noreferrer">UNICEF Brasil</a> - Cartilhas sobre saúde mental de crianças e adolescentes no espaço escolar.
-                    </li>
+                <div id="resposta-desabafo" class="feedback-card hidden"></div>
+            </div>
+
+            <div class="rede-apoio">
+                <h3><i class="fa-solid fa-handshake-angle"></i> Quem procurar se precisar de ajuda real:</h3>
+                <ul>
+                    <li><i class="fa-solid fa-school"></i> <strong>Equipe Pedagógica / Orientação da Escola:</strong> Apoio direto com questões escolares e de convivência.</li>
+                    <li><i class="fa-solid fa-user-shield"></i> <strong>Adulto de Confiança:</strong> Pais, responsáveis ou familiares próximos.</li>
+                    <li><i class="fa-solid fa-phone-volume"></i> <strong>CVV (Centro de Valorização da Vida):</strong> Apoio emocional gratuito ligando para <strong>188</strong> ou via chat em <a href="https://cvv.org.br" target="_blank" rel="noopener">cvv.org.br</a>.</li>
                 </ul>
             </div>
         </section>
+
+        <!-- 3. QUIZ INTERATIVO (5 PERGUNTAS DE ENTRETENIMENTO & CONSCIENTIZAÇÃO) -->
+        <section id="quiz" class="section-card">
+            <h2><i class="fa-solid fa-gamepad"></i> Quiz Interativo & Pausa Consciente</h2>
+            <p>Responda às 5 perguntas abaixo para testar suas estratégias de bem-estar e aliviar a tensão do momento.</p>
+
+            <div id="quiz-container" style="margin-top: 20px;">
+                <!-- Pergunta 1 -->
+                <div class="question-block">
+                    <p class="question-title">1. Quando você sente que a ansiedade está aumentando na sala de aula, qual é a melhor ação imediata?</p>
+                    <label class="option-label"><input type="radio" name="q1" value="a"> Tentar ignorar e continuar acumulando tensão.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="b"> Focar na respiração consciente e pedir licença para tomar água.</label>
+                    <label class="option-label"><input type="radio" name="q1" value="c"> Começar a reclamar com os colegas ao lado.</label>
+                </div>
+
+                <!-- Pergunta 2 -->
+                <div class="question-block">
+                    <p class="question-title">2. Como reagir se presenciar um colega sendo isolado ou sofrendo deboche?</p>
+                    <label class="option-label"><input type="radio" name="q2" value="a"> Chamar o colega para se juntar ao seu grupo e avisar a coordenação.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="b"> Gravar com o celular e postar nas redes sociais.</label>
+                    <label class="option-label"><input type="radio" name="q2" value="c"> Não fazer nada para não se envolver.</label>
+                </div>
+
+                <!-- Pergunta 3 -->
+                <div class="question-block">
+                    <p class="question-title">3. O que é mais eficaz ao se preparar para uma semana com muitas avaliações?</p>
+                    <label class="option-label"><input type="radio" name="q3" value="a"> Estudar a noite toda sem dormir no dia anterior.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="b"> Dividir o conteúdo em pequenas etapas diárias e priorizar o sono.</label>
+                    <label class="option-label"><input type="radio" name="q3" value="c"> Deixar para ler tudo minutos antes da prova.</label>
+                </div>
+
+                <!-- Pergunta 4 -->
+                <div class="question-block">
+                    <p class="question-title">4. Qual atitude ajuda a construir um ambiente escolar mais seguro?</p>
+                    <label class="option-label"><input type="radio" name="q4" value="a"> Espalhar fofocas e rumores sobre a vida dos outros.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="b"> Praticar a escuta ativa e respeitar as diferenças dos colegas.</label>
+                    <label class="option-label"><input type="radio" name="q4" value="c"> Excluir quem tem gostos diferentes dos seus.</label>
+                </div>
+
+                <!-- Pergunta 5 -->
+                <div class="question-block">
+                    <p class="question-title">5. Quando as redes sociais começam a causar sentimentos ruins ou comparações excessivas, o recomendado é:</p>
+                    <label class="option-label"><input type="radio" name="q5" value="a"> Fazer um detox digital e focar em atividades offline com amigos ou hobbies.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="b"> Aumentar o tempo online tentando provar algo.</label>
+                    <label class="option-label"><input type="radio" name="q5" value="c"> Apagar todas as amizades e se isolar completamente.</label>
+                </div>
+
+                <button id="btn-calcular-quiz" class="btn-glow" style="margin-top: 10px;"><i class="fa-solid fa-check-double"></i> Ver Pontuação</button>
+            </div>
+
+            <div id="quiz-resultado" class="feedback-card hidden"></div>
+        </section>
+
+        <!-- 4. PÁGINA DE REFERÊNCIAS -->
+        <section id="referencias" class="section-card">
+            <h2><i class="fa-solid fa-bookmark"></i> Referências & Fontes Confiáveis</h2>
+            <p>Informações baseadas em materiais educativos de instituições oficiais:</p>
+            <ul class="ref-links">
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> <a href="https://www.gov.br/ministeriodasaude" target="_blank" rel="noopener">Ministério da Saúde — Guia de Saúde Mental na Adolescência</a></li>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> <a href="https://www.unicef.org/brazil/" target="_blank" rel="noopener">UNICEF Brasil — Promoção de Saúde Mental e Proteção Infantil</a></li>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> <a href="https://safernet.org.br/" target="_blank" rel="noopener">SaferNet Brasil — Bem-estar e Segurança na Rede</a></li>
+                <li><i class="fa-solid fa-arrow-up-right-from-square"></i> <a href="https://cvv.org.br" target="_blank" rel="noopener">CVV — Centro de Valorização da Vida</a></li>
+            </ul>
+        </section>
+
     </main>
 
-    <footer class="footer">
+    <!-- BOTÃO VOLTAR AO TOPO -->
+    <button id="btn-back-to-top" title="Voltar ao Topo"><i class="fa-solid fa-chevron-up"></i></button>
+
+    <footer>
         <div class="container">
-            <p>&copy; 2026 Portal de Apoio ao Estudante | Projeto Educacional Individual</p>
+            <p>&copy; 2026 Portal CalmaMente | Desenvolvido para o Projeto Individual de Apoio ao Estudante.</p>
         </div>
     </footer>
 
-    <!-- Botao Voltar ao Topo -->
-    <button id="btn-top" title="Voltar ao Topo"><i class="fa-solid fa-arrow-up"></i></button>
+    <!-- LÓGICA JAVASCRIPT EM EMBUTIDA -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-    <script src="script.js"></script>
+            // 1. Acessibilidade (Alto Contraste e Tamanho de Fonte)
+            const btnHighContrast = document.getElementById("btn-high-contrast");
+            const btnFontPlus = document.getElementById("btn-font-plus");
+            const btnFontMinus = document.getElementById("btn-font-minus");
+            let currentPx = 16;
+
+            btnHighContrast.addEventListener("click", () => {
+                document.body.classList.toggle("high-contrast");
+            });
+
+            btnFontPlus.addEventListener("click", () => {
+                if (currentPx < 20) {
+                    currentPx += 1;
+                    document.documentElement.style.setProperty('--font-scale', `${currentPx}px`);
+                }
+            });
+
+            btnFontMinus.addEventListener("click", () => {
+                if (currentPx > 14) {
+                    currentPx -= 1;
+                    document.documentElement.style.setProperty('--font-scale', `${currentPx}px`);
+                }
+            });
+
+            // 2. Espaço de Desabafo Minimalista & Contador
+            const campoDesabafo = document.getElementById("campo-desabafo");
+            const charCounter = document.getElementById("char-counter");
+            const formDesabafo = document.getElementById("form-desabafo");
+            const respostaDesabafo = document.getElementById("resposta-desabafo");
+
+            campoDesabafo.addEventListener("input", () => {
+                const totalChars = campoDesabafo.value.length;
+                charCounter.textContent = `${totalChars} caracteres`;
+            });
+
+            const mensagensAcolhedoras = [
+                "Obrigado por externalizar o que sente. Tirar do pensamento é o primeiro passo para aliviar o peso.",
+                "Suas emoções são válidas. Respire fundo e dê a si mesmo o tempo necessário para recuperar a calma.",
+                "Você não está sozinho nessa jornada. Lembre-se de recorrer a pessoas de confiança quando precisar.",
+                "Cada momento de tensão passa. Você é mais forte do que a pressão momentânea."
+            ];
+
+            formDesabafo.addEventListener("submit", (e) => {
+                e.preventDefault();
+                
+                if (campoDesabafo.value.trim() !== "") {
+                    const mensagemSorteada = mensagensAcolhedoras[Math.floor(Math.random() * mensagensAcolhedoras.length)];
+                    
+                    respostaDesabafo.innerHTML = `
+                        <h3><i class="fa-solid fa-heart"></i> Espaço de Acolhimento</h3>
+                        <p style="margin: 10px 0; font-style: italic; color: var(--accent-cyan);">"${mensagemSorteada}"</p>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary);">
+                            Nota: O seu texto não foi salvo nem enviado a nenhum servidor.
+                        </p>
+                    `;
+                    respostaDesabafo.classList.remove("hidden");
+                    formDesabafo.reset();
+                    charCounter.textContent = "0 caracteres";
+                }
+            });
+
+            // 3. Quiz Interativo & Respostas
+            const btnCalcularQuiz = document.getElementById("btn-calcular-quiz");
+            const quizResultado = document.getElementById("quiz-resultado");
+
+            const gabarito = {
+                q1: 'b',
+                q2: 'a',
+                q3: 'b',
+                q4: 'b',
+                q5: 'a'
+            };
+
+            btnCalcularQuiz.addEventListener("click", () => {
+                let acertos = 0;
+                const total = 5;
+
+                for (let i = 1; i <= total; i++) {
+                    const marcada = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (marcada && marcada.value === gabarito[`q${i}`]) {
+                        acertos++;
+                    }
+                }
+
+                quizResultado.innerHTML = `
+                    <h3><i class="fa-solid fa-award"></i> Resultado do Quiz</h3>
+                    <p>Você acertou <strong>${acertos}</strong> de <strong>${total}</strong> perguntas de inteligência emocional e estratégias de convivência.</p>
+                    <p style="margin-top: 8px; color: var(--text-secondary);">
+                        ${acertos === 5 ? 'Parabéns! Você domina ótimas estratégias de autocuidado e empatia no ambiente escolar.' : 'Ótimo esforço! Reveja as dicas no topo da página para aprimorar seu bem-estar.'}
+                    </p>
+                `;
+                quizResultado.classList.remove("hidden");
+            });
+
+            // 4. Botão Voltar ao Topo
+            const btnBackToTop = document.getElementById("btn-back-to-top");
+
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 300) {
+                    btnBackToTop.style.display = "flex";
+                } else {
+                    btnBackToTop.style.display = "none";
+                }
+            });
+
+            btnBackToTop.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
 </body>
 </html>
